@@ -9,19 +9,41 @@ import java.util.Map;
 import java.util.function.ToIntFunction;
 
 public class Day01 {
+    protected static final Map<String, Integer> SEARCH_SPACE = new HashMap<>();
+
     public static void main(String[] args) throws IOException {
         final List<String> input = InputReader.read("day01-input.txt");
 
+        SEARCH_SPACE.put("1", 1);
+        SEARCH_SPACE.put("2", 2);
+        SEARCH_SPACE.put("3", 3);
+        SEARCH_SPACE.put("4", 4);
+        SEARCH_SPACE.put("5", 5);
+        SEARCH_SPACE.put("6", 6);
+        SEARCH_SPACE.put("7", 7);
+        SEARCH_SPACE.put("8", 8);
+        SEARCH_SPACE.put("9", 9);
+
         // part 1
-        int calibrationValueSumPart1 = getCalibrationValue(input, Day01::getCalibrationValue);
+        int calibrationValueSumPart1 = sum(input, Day01::getCalibrationValue);
         System.out.println(calibrationValueSumPart1);
 
+        SEARCH_SPACE.put("one", 1);
+        SEARCH_SPACE.put("two", 2);
+        SEARCH_SPACE.put("three", 3);
+        SEARCH_SPACE.put("four", 4);
+        SEARCH_SPACE.put("five", 5);
+        SEARCH_SPACE.put("six", 6);
+        SEARCH_SPACE.put("seven", 7);
+        SEARCH_SPACE.put("eight", 8);
+        SEARCH_SPACE.put("nine", 9);
+
         // part 2
-        int calibrationValueSumPart2 = getCalibrationValue(input, Day01::getCalibrationValueV2);
+        int calibrationValueSumPart2 = sum(input, Day01::getCalibrationValue);
         System.out.println(calibrationValueSumPart2);
     }
 
-    public static int getCalibrationValue(final List<String> input, final ToIntFunction<String> valueMapper) {
+    public static int sum(final List<String> input, final ToIntFunction<String> valueMapper) {
         return input.stream()
                 .mapToInt(valueMapper)
                 .filter(i -> i > 0)
@@ -33,37 +55,11 @@ public class Day01 {
             return -1;
         }
 
-        char firstDigit = findFirstDigit(string);
-        if (firstDigit == '\0') {
-            return -1;
-        }
-        char lastDigit = findFirstDigit(new StringBuilder(string).reverse().toString());
-
-        return Integer.parseInt("" + firstDigit + lastDigit);
-    }
-
-    private static char findFirstDigit(final String string) {
-        for (char c : string.toCharArray()) {
-            if (Character.isDigit(c)) {
-                return c;
-            }
-        }
-
-        return '\0';
-    }
-
-    public static int getCalibrationValueV2(final String string) {
-        if (string == null || string.isEmpty()) {
-            return -1;
-        }
-
         int firstDigit = findDigit(string, 1);
         if (firstDigit == -1) {
             return -1;
         }
         int lastDigit = findDigit(string, 0);
-
-        System.out.println(string + ", first=" + firstDigit + ", last=" + lastDigit);
 
         return Integer.parseInt("" + firstDigit + lastDigit);
     }
@@ -71,30 +67,10 @@ public class Day01 {
     // handles string representations of numbers as well as digits occurring within the string
     // flag = 1 --> find first, flag = 0 --> find last
     private static int findDigit(final String string, final int flag) {
-        final Map<String, Integer> searchSpace = new HashMap<>();
-        searchSpace.put("1", 1);
-        searchSpace.put("one", 1);
-        searchSpace.put("2", 2);
-        searchSpace.put("two", 2);
-        searchSpace.put("3", 3);
-        searchSpace.put("three", 3);
-        searchSpace.put("4", 4);
-        searchSpace.put("four", 4);
-        searchSpace.put("5", 5);
-        searchSpace.put("five", 5);
-        searchSpace.put("6", 6);
-        searchSpace.put("six", 6);
-        searchSpace.put("7", 7);
-        searchSpace.put("seven", 7);
-        searchSpace.put("8", 8);
-        searchSpace.put("eight", 8);
-        searchSpace.put("9", 9);
-        searchSpace.put("nine", 9);
-
         int value = -1;
         if (flag == 1) {
             int earliest = Integer.MAX_VALUE;
-            for (Map.Entry<String, Integer> s : searchSpace.entrySet()) {
+            for (Map.Entry<String, Integer> s : SEARCH_SPACE.entrySet()) {
                 int i = string.indexOf(s.getKey());
                 if (i >= 0 && i < earliest) {
                     earliest = i;
@@ -103,7 +79,7 @@ public class Day01 {
             }
         } else {
             int latest = Integer.MIN_VALUE;
-            for (Map.Entry<String, Integer> s : searchSpace.entrySet()) {
+            for (Map.Entry<String, Integer> s : SEARCH_SPACE.entrySet()) {
                 int i = string.lastIndexOf(s.getKey());
                 if (i >= 0 && i > latest) {
                     latest = i;
