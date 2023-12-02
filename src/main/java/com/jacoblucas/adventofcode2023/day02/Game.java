@@ -17,6 +17,25 @@ public record Game(int id, List<List<Pair<Integer, Cube>>> cubeSets) {
                         }));
     }
 
+    public int getMinimumCubes(final Cube cube) {
+        int max = Integer.MIN_VALUE;
+        for (List<Pair<Integer, Cube>> handful : cubeSets) {
+            for (Pair<Integer, Cube> cubes : handful) {
+                if (cubes.second() == cube) {
+                    if (cubes.first() > max) {
+                        max = cubes.first();
+                    }
+                }
+            }
+        }
+        return max;
+    }
+
+    public int power() {
+        return getMinimumCubes(Cube.RED) * getMinimumCubes(Cube.GREEN) * getMinimumCubes(Cube.BLUE);
+    }
+
+    // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
     public static Game parse(final String str) {
         try {
             final String[] parts = str.split(":");
@@ -33,7 +52,6 @@ public record Game(int id, List<List<Pair<Integer, Cube>>> cubeSets) {
             return null;
         }
     }
-    // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
     // 3 blue, 4 red
     private static List<Pair<Integer, Cube>> parseHandfulOfCubes(final String str) {

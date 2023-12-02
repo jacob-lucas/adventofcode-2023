@@ -17,7 +17,13 @@ public class Day02 {
                 .filter(g -> g.isPossible(12, 13, 14))
                 .toList();
 
-        final int idsum = possibleGames.stream().mapToInt(Game::id).sum();
-        System.out.println(idsum);
+        final int idSum = possibleGames.stream().mapToInt(Game::id).sum();
+        System.out.println(idSum);
+
+        // Part 2
+        final int powerSum = games.stream()
+                .mapToInt(Game::power)
+                .sum();
+        System.out.println(powerSum);
     }
 }
