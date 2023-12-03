@@ -30,6 +30,13 @@ public record Schematic(List<String> engine) {
         return parts;
     }
 
+    public List<Pair<Integer, Integer>> findGears() {
+        return findParts().stream()
+                .filter(p -> engine.get(p.first()).charAt(p.second()) == '*')
+                .filter(p -> findPartNumbers(p).size() == 2)
+                .toList();
+    }
+
     public Set<Integer> findPartNumbers(final Pair<Integer, Integer> part) {
         final Set<Integer> partNumbers = new HashSet<>();
         int row = part.first();

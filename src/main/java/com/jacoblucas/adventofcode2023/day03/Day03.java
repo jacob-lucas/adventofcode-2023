@@ -12,5 +12,14 @@ public class Day03 {
         // Part 1
         final Schematic schematic = new Schematic(input);
         System.out.println(schematic.getPartNumberSum());
+
+        // Part 2
+        final int gearRatioSum = schematic.findGears().stream()
+                .mapToInt(p -> schematic.findPartNumbers(p)
+                        .stream()
+                        .reduce((x, y) -> x * y)
+                        .get())
+                .sum();
+        System.out.println(gearRatioSum);
     }
 }

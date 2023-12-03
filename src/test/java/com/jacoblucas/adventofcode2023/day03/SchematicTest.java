@@ -56,4 +56,11 @@ public class SchematicTest {
     public void testGetPartNumberSum() {
         assertThat(schematic.getPartNumberSum(), is(4361));
     }
+
+    @Test
+    public void testFindGears() {
+        assertThat(schematic.findGears(), containsInAnyOrder(
+                new Pair<>(1, 3),
+                new Pair<>(8, 5)));
+    }
 }
