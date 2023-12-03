@@ -12,4 +12,9 @@ public class PairTest {
         assertThat(pair.first(), is(1));
         assertThat(pair.second(), is("foo"));
     }
+
+    @Test
+    public void testToString() {
+        assertThat(new Pair<>(1, "foo").toString(), is("(1,foo)"));
+    }
 }
