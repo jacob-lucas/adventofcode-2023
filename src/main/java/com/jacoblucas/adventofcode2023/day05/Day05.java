@@ -1,11 +1,11 @@
 package com.jacoblucas.adventofcode2023.day05;
 
 import com.jacoblucas.adventofcode2023.utils.InputReader;
+import com.jacoblucas.adventofcode2023.utils.Pair;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.LongStream;
 
 public class Day05 {
     public static void main(String[] args) throws IOException {
@@ -20,6 +20,25 @@ public class Day05 {
                 .min()
                 .getAsLong();
         System.out.println(lowestLocationNumber);
+
+        // Part 2
+        final List<Pair<Long, Long>> seedRanges = new ArrayList<>();
+        for (int i = 0; i < seeds.size(); i += 2) {
+            seedRanges.add(new Pair<>(seeds.get(i), seeds.get(i+1)));
+        }
+
+        // This takes ~30 minutes... :/
+        long lowestLocationNumberFromRanges = seedRanges.stream()
+                .mapToLong(p -> {
+                    System.out.println(p);
+                    return LongStream.range(p.first(), p.first() + p.second() + 1)
+                            .map(almanac::getLocationForSeed)
+                            .min()
+                            .getAsLong();
+                })
+                .min()
+                .getAsLong();
+        System.out.println(lowestLocationNumberFromRanges);
     }
 
     public static List<Long> toLongList(final String input) {
