@@ -17,5 +17,9 @@ public class Day06 {
                 .reduce((a, b) -> a * b)
                 .get();
         System.out.println(waysToWin);
+
+        // Part 2
+        final Race realRace = new Race(5, 48989083L, 390110311121360L);
+        System.out.println(toyboat.getWaysToWin(realRace));
     }
 }

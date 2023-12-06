@@ -17,14 +17,14 @@ public class ToyboatTest {
     @Test
     public void testDistance() {
         Race race = Day06Test.RACE1;
-        assertThat(toyboat.distance(0, race), is(0));
-        assertThat(toyboat.distance(1, race), is(6));
-        assertThat(toyboat.distance(2, race), is(10));
-        assertThat(toyboat.distance(3, race), is(12));
-        assertThat(toyboat.distance(4, race), is(12));
-        assertThat(toyboat.distance(5, race), is(10));
-        assertThat(toyboat.distance(6, race), is(6));
-        assertThat(toyboat.distance(7, race), is(0));
+        assertThat(toyboat.distance(0, race), is(0L));
+        assertThat(toyboat.distance(1, race), is(6L));
+        assertThat(toyboat.distance(2, race), is(10L));
+        assertThat(toyboat.distance(3, race), is(12L));
+        assertThat(toyboat.distance(4, race), is(12L));
+        assertThat(toyboat.distance(5, race), is(10L));
+        assertThat(toyboat.distance(6, race), is(6L));
+        assertThat(toyboat.distance(7, race), is(0L));
     }
 
     @Test
