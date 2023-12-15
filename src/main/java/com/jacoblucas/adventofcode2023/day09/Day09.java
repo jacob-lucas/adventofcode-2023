@@ -13,17 +13,25 @@ public class Day09 {
 //                "10 13 16 21 30 45");
         final List<String> input = InputReader.read("day09-input.txt");
 
-        final List<ValueHistory> histories = input.stream()
+        List<ValueHistory> histories = input.stream()
                 .map(ValueHistory::parse)
                 .toList();
 
         // Part 1
-        histories.forEach(ValueHistory::extrapolate);
+        histories.forEach(ValueHistory::extrapolateForward);
         long extrapolationSum = histories.stream()
-                .mapToLong(ValueHistory::last)
+                .mapToInt(vh -> vh.tail().getValue())
+                .sum();
+        System.out.println(extrapolationSum);
+
+        // Part 2
+        histories = input.stream()
+                .map(ValueHistory::parse)
+                .toList();
+        histories.forEach(ValueHistory::extrapolateBackward);
+        extrapolationSum = histories.stream()
+                .mapToInt(vh -> vh.head().getValue())
                 .sum();
         System.out.println(extrapolationSum);
     }
-
-
 }

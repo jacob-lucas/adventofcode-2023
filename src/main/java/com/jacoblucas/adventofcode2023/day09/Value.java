@@ -44,4 +44,8 @@ public class Value {
     public void setRight(final Value v) {
         this.right = v;
     }
+
+    public void setLeft(final Value v) {
+        this.left = v;
+    }
 }

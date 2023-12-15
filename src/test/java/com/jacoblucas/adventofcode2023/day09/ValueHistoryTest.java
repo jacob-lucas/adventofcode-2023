@@ -39,9 +39,16 @@ public class ValueHistoryTest {
     }
 
     @Test
-    public void testExtrapolate() {
-        assertThat(ValueHistory.parse("0 3 6 9 12 15").extrapolate().getValue(), is(18));
-        assertThat(new ValueHistory(1, 3, 6, 10, 15, 21).extrapolate().getValue(), is(28));
-        assertThat(new ValueHistory(10, 13, 16, 21, 30, 45).extrapolate().getValue(), is(68));
+    public void testExtrapolateForward() {
+        assertThat(ValueHistory.parse("0 3 6 9 12 15").extrapolateForward().getValue(), is(18));
+        assertThat(new ValueHistory(1, 3, 6, 10, 15, 21).extrapolateForward().getValue(), is(28));
+        assertThat(new ValueHistory(10, 13, 16, 21, 30, 45).extrapolateForward().getValue(), is(68));
+    }
+
+    @Test
+    public void testExtrapolateBackward() {
+        assertThat(ValueHistory.parse("0 3 6 9 12 15").extrapolateBackward().getValue(), is(-3));
+        assertThat(new ValueHistory(1, 3, 6, 10, 15, 21).extrapolateBackward().getValue(), is(0));
+        assertThat(new ValueHistory(10, 13, 16, 21, 30, 45).extrapolateBackward().getValue(), is(5));
     }
 }
